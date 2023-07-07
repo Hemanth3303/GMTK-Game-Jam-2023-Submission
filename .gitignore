@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/gmtk-game-jam-2023-submission
+gmtk-game-jam-2023-submission.so
+gmtk-game-jam-2023-submission.dylib
+gmtk-game-jam-2023-submission.dll
+gmtk-game-jam-2023-submission.a
+gmtk-game-jam-2023-submission.lib
+gmtk-game-jam-2023-submission-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
+bin/
