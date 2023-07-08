@@ -2,6 +2,7 @@ module utils;
 
 import coin;
 import player;
+import config;
 import raylib;
 import std.conv;
 
@@ -24,4 +25,16 @@ void drawIntWithMessage(string message, int value, int x, int y)
 {
 	string text=message~to!string(value);
 	DrawText(text.ptr, x, y, 32, Colors.WHITE);
+}
+
+bool allExceptControlledDead(Coin[] coins)
+{
+	for(int i=1; i<MAX_COINS; i++)
+	{
+		if(coins[i].ignored==false)
+		{
+			return false;
+		}
+	}
+	return true;
 }

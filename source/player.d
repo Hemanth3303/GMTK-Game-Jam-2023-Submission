@@ -24,7 +24,7 @@ class Player
 	{
 		int closest=0;
 		float smallest=distance(pos, allCoins[0].pos);
-		for(int i=0; i<20; i++)
+		for(int i=0; i<MAX_COINS; i++)
 		{
 			float tempDist=distance(pos, allCoins[i].pos);
 			if(tempDist<=smallest && !allCoins[i].ignored)

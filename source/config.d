@@ -4,7 +4,7 @@ import raylib;
 import raygui;
 import std.conv;
 
-immutable float GRAVITY=400.0f;
+immutable size_t MAX_COINS=25;
 
 struct WindowProps
 {

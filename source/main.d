@@ -24,10 +24,10 @@ void main()
 		Vector2(48, 48)
 	);
 
-	Coin[20] allCoins;
+	Coin[MAX_COINS] allCoins;
 	allCoins[0]=coin;
 
-	for(int i=1; i<20; i++)
+	for(int i=1; i<MAX_COINS; i++)
 	{
 		allCoins[i]=new Coin(
 			Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
@@ -60,7 +60,7 @@ void main()
 				Vector2(GetRandomValue(0, windowProps.width-24), GetRandomValue(0, windowProps.height-24)), 
 				Vector2(48, 48)
 			);
-			for(int i=1; i<20; i++)
+			for(int i=1; i<MAX_COINS; i++)
 			{
 				allCoins[i]=new Coin(
 					Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
@@ -72,7 +72,7 @@ void main()
 		windowProps.update();
 		if(start)
 		{
-			for(int i=0; i<20; i++)
+			for(int i=0; i<MAX_COINS; i++)
 			{
 				allCoins[i].update(deltaTime);
 			}
@@ -85,11 +85,21 @@ void main()
 				timeSurvived=0.0f;
 			}
 			
-			for(int i=0; i<20; i++)
+			for(int i=0; i<MAX_COINS; i++)
 			{
 				if(checkCollision(allCoins[i], player))
 				{
 					start=false;
+				}
+			}
+			if(allExceptControlledDead(allCoins))
+			{
+				for(int i=1; i<MAX_COINS; i++)
+				{
+					allCoins[i]=new Coin(
+						Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
+						Vector2(24, 24),
+					);
 				}
 			}
 		}
@@ -99,13 +109,13 @@ void main()
 		BeginDrawing();
 		ClearBackground(Colors.BLACK);
 
-		for(int i=0; i<20; i++)
+		for(int i=0; i<MAX_COINS; i++)
 		{
 			allCoins[i].render();
 		}
 		coin.render();
 		player.render();
-		drawIntWithMessage("Score: ", score, 20, 20);
+		drawIntWithMessage("Score: ", score, MAX_COINS, MAX_COINS);
 
 		EndDrawing();
 		// end render loop
