@@ -41,4 +41,4 @@ struct WindowProps
 	}
 }
 
-WindowProps windowProps=WindowProps(960, 540, "GMTK Game Jam 2023 Submission", 60);
+WindowProps windowProps=WindowProps(960, 540, "Avoid Collection", 60);
