@@ -9,18 +9,23 @@ class Coin
 	Vector2 pos;
 	Vector2 size;
 	Vector2 vel;
+	bool controlled;
 	private immutable float SPEED=500.0f;
 
-	this(Vector2 pos, Vector2 size)
+	this(Vector2 pos, Vector2 size, bool controlled=false)
 	{
 		this.pos=pos;
 		this.size=size;
 		this.vel=Vector2(0.0f, 0.0f);
+		this.controlled=controlled;
 	}
 
 	public void update(float deltaTime)
 	{
-		manageInputs();
+		if(controlled)
+		{
+			manageInputs();
+		}
 		
 		pos.x+=vel.x*SPEED*deltaTime;
 		pos.y+=vel.y*SPEED*deltaTime;

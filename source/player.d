@@ -10,7 +10,7 @@ class Player
 	Vector2 pos;
 	Vector2 size;
 	Vector2 vel;
-	private immutable float SPEED=500.0f;
+	private immutable float SPEED=300.0f;
 
 	this(Vector2 pos, Vector2 size)
 	{
@@ -21,8 +21,8 @@ class Player
 
 	public void update(float deltaTime, Coin coin)
 	{
-		pos.x=lerp(pos.x, coin.pos.x, 0.5*deltaTime);
-		pos.y=lerp(pos.y, coin.pos.y, 0.5*deltaTime);
+		pos.x=lerp(pos.x, coin.pos.x, pow(0.5, deltaTime*SPEED));
+		pos.y=lerp(pos.y, coin.pos.y, pow(0.5, deltaTime*SPEED));
 		checkBoundaryCollisions();
 	}
 
