@@ -36,21 +36,17 @@ void main()
 	}
 
 	bool start=false;
-	int score=0;
+	int score=0, highScore=0;
 	float timeSurvived=0.0f;
 	
 	while(!WindowShouldClose())
 	{
 		// begin update loop
 		deltaTime=GetFrameTime();
-
 		if(IsKeyPressed(KeyboardKey.KEY_SPACE) && !start)
 		{
 			start=true;
-		}
 
-		if(IsKeyPressed(KeyboardKey.KEY_R) && !start)
-		{
 			coin=new Coin(
 				Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
 				Vector2(24, 24),
@@ -91,6 +87,10 @@ void main()
 				if(checkCollision(allCoins[i], player))
 				{
 					start=false;
+					if(score>highScore)
+					{
+						highScore=score;
+					}
 				}
 			}
 			if(allExceptControlledDead(allCoins))
@@ -108,7 +108,7 @@ void main()
 
 		// begin render loop
 		BeginDrawing();
-		ClearBackground(Colors.BLACK);
+		ClearBackground(Color(40, 40, 40, 255));
 
 		if(start)
 		{
@@ -123,9 +123,11 @@ void main()
 		else
 		{
 			DrawText("Press Space to Start", 250, 150, 40, Colors.WHITE);
-			DrawText("Press R to Restart", 270, 190, 40, Colors.WHITE);
-			DrawText("Don't let the player collect you, little coin", 50, 230, 40, Colors.WHITE);
-			drawIntWithMessage("Previous Score: ", score, 330, 280);
+			DrawText("WASD to move", 320, 190, 40, Colors.WHITE);
+			DrawText("You are Orange", 300, 230, 40, Colors.WHITE);
+			DrawText("Don't let the player collect you, little coin", 50, 270, 40, Colors.WHITE);
+			drawIntWithMessage("Previous Score: ", score, 330, 320);
+			drawIntWithMessage("High Score: ", highScore, 360, 350);
 		}
 
 		EndDrawing();
