@@ -67,6 +67,7 @@ void main()
 					Vector2(24, 24),
 				);
 			}
+			allCoins[0]=coin;
 		}
 
 		windowProps.update();
@@ -109,13 +110,23 @@ void main()
 		BeginDrawing();
 		ClearBackground(Colors.BLACK);
 
-		for(int i=0; i<MAX_COINS; i++)
+		if(start)
 		{
-			allCoins[i].render();
+			for(int i=0; i<MAX_COINS; i++)
+			{
+				allCoins[i].render();
+			}
+			coin.render();
+			player.render();
+			drawIntWithMessage("Score: ", score, MAX_COINS, MAX_COINS);
 		}
-		coin.render();
-		player.render();
-		drawIntWithMessage("Score: ", score, MAX_COINS, MAX_COINS);
+		else
+		{
+			DrawText("Press Space to Start", 250, 150, 40, Colors.WHITE);
+			DrawText("Press R to Restart", 270, 190, 40, Colors.WHITE);
+			DrawText("Don't let the player collect you, little coin", 50, 230, 40, Colors.WHITE);
+			drawIntWithMessage("Previous Score: ", score, 330, 280);
+		}
 
 		EndDrawing();
 		// end render loop
