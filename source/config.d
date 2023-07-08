@@ -4,6 +4,8 @@ import raylib;
 import raygui;
 import std.conv;
 
+immutable float GRAVITY=400.0f;
+
 struct WindowProps
 {
 	int width;

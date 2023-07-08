@@ -1,17 +1,18 @@
 module main;
 
 import config;
+import coin;
 import raylib;
 import std;
 
 void main()
 {
 	validateRaylibBinding();
-	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 	InitWindow(windowProps.width, windowProps.height, windowProps.title);
 	SetTargetFPS(windowProps.maxFps);
 
 	float deltaTime=0.0f;
+	Coin coin=new Coin(Vector2(windowProps.width/2, windowProps.height/2), Vector2(24, 24));
 	
 	while(!WindowShouldClose())
 	{
@@ -19,12 +20,14 @@ void main()
 		deltaTime=GetFrameTime();
 
 		windowProps.update();
+		coin.update(deltaTime);
 		// end update loop
 
 		// begin render loop
 		BeginDrawing();
 		ClearBackground(Colors.BLACK);
-		DrawFPS(20, 20);
+
+		coin.render();
 
 		EndDrawing();
 		// end render loop
