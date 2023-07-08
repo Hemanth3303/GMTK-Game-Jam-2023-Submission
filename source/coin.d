@@ -10,6 +10,7 @@ class Coin
 	Vector2 size;
 	Vector2 vel;
 	bool controlled;
+	bool ignored;
 	private immutable float SPEED=500.0f;
 
 	this(Vector2 pos, Vector2 size, bool controlled=false)
@@ -18,20 +19,23 @@ class Coin
 		this.size=size;
 		this.vel=Vector2(0.0f, 0.0f);
 		this.controlled=controlled;
+		this.ignored=false;
 	}
 
 	public void update(float deltaTime)
 	{
+		if(ignored)
+		{
+			return;
+		}
 		if(controlled)
 		{
 			manageInputs();
-		}
-		
-		pos.x+=vel.x*SPEED*deltaTime;
-		pos.y+=vel.y*SPEED*deltaTime;
+			pos.x+=vel.x*SPEED*deltaTime;
+			pos.y+=vel.y*SPEED*deltaTime;
 
-		checkBoundaryCollisions();
-		
+			checkBoundaryCollisions();
+		}
 	}
 
 	private void manageInputs()
@@ -84,6 +88,22 @@ class Coin
 
 	public void render()
 	{
-		DrawRectangle(to!int(pos.x), to!int(pos.y), to!int(size.x), to!int(size.y), Colors.YELLOW);
+		if(ignored)
+		{
+			return;
+		}
+		Color c, b;
+		if(controlled)
+		{
+			c=Colors.ORANGE;
+			b=Colors.BLUE;
+		}
+		else
+		{
+			c=Colors.GOLD;
+			b=Colors.WHITE;
+		}
+		DrawRectangle(to!int(pos.x), to!int(pos.y), to!int(size.x), to!int(size.y), c);
+		DrawRectangleLines(to!int(pos.x), to!int(pos.y), to!int(size.x), to!int(size.y), b);
 	}
 }

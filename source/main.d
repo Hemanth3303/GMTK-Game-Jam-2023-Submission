@@ -24,6 +24,17 @@ void main()
 		Vector2(48, 48)
 	);
 
+	Coin[20] allCoins;
+	allCoins[0]=coin;
+
+	for(int i=1; i<20; i++)
+	{
+		allCoins[i]=new Coin(
+			Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
+			Vector2(24, 24),
+		);
+	}
+
 	bool start=false;
 	int score=0;
 	float timeSurvived=0.0f;
@@ -49,13 +60,23 @@ void main()
 				Vector2(GetRandomValue(0, windowProps.width-24), GetRandomValue(0, windowProps.height-24)), 
 				Vector2(48, 48)
 			);
+			for(int i=1; i<20; i++)
+			{
+				allCoins[i]=new Coin(
+					Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
+					Vector2(24, 24),
+				);
+			}
 		}
 
 		windowProps.update();
 		if(start)
 		{
-			coin.update(deltaTime);
-			player.update(deltaTime, coin);
+			for(int i=0; i<20; i++)
+			{
+				allCoins[i].update(deltaTime);
+			}
+			player.update(deltaTime, allCoins);
 			timeSurvived+=deltaTime;
 
 			if(timeSurvived>=1.0f)
@@ -64,9 +85,12 @@ void main()
 				timeSurvived=0.0f;
 			}
 			
-			if(checkCollision(coin, player))
+			for(int i=0; i<20; i++)
 			{
-				start=false;
+				if(checkCollision(allCoins[i], player))
+				{
+					start=false;
+				}
 			}
 		}
 		// end update loop
@@ -75,6 +99,10 @@ void main()
 		BeginDrawing();
 		ClearBackground(Colors.BLACK);
 
+		for(int i=0; i<20; i++)
+		{
+			allCoins[i].render();
+		}
 		coin.render();
 		player.render();
 		drawIntWithMessage("Score: ", score, 20, 20);

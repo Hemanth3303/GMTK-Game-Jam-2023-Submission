@@ -3,6 +3,7 @@ module player;
 import coin;
 import config;
 import raylib;
+import raylib.raymath;
 import std;
 
 class Player
@@ -19,10 +20,21 @@ class Player
 		this.vel=Vector2(0.0f, 0.0f);
 	}
 
-	public void update(float deltaTime, Coin coin)
+	public void update(float deltaTime, Coin[] allCoins)
 	{
-		pos.x=lerp(pos.x, coin.pos.x, pow(0.5, deltaTime*SPEED));
-		pos.y=lerp(pos.y, coin.pos.y, pow(0.5, deltaTime*SPEED));
+		int closest=0;
+		float smallest=distance(pos, allCoins[0].pos);
+		for(int i=0; i<20; i++)
+		{
+			float tempDist=distance(pos, allCoins[i].pos);
+			if(tempDist<=smallest && !allCoins[i].ignored)
+			{
+				smallest=tempDist;
+				closest=i;
+			}
+		}
+		pos.x=lerp(pos.x, allCoins[closest].pos.x, pow(0.5, deltaTime*SPEED));
+		pos.y=lerp(pos.y, allCoins[closest].pos.y, pow(0.5, deltaTime*SPEED));
 		checkBoundaryCollisions();
 	}
 

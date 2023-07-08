@@ -9,8 +9,15 @@ bool checkCollision(Coin coin, Player player)
 {
 	Rectangle coinRect=Rectangle(coin.pos.x, coin.pos.y, coin.size.x, coin.size.y);
 	Rectangle playerRect=Rectangle(player.pos.x, player.pos.y, player.size.x, player.size.y);
+	
+	bool collides=CheckCollisionRecs(coinRect, playerRect);
 
-	return CheckCollisionRecs(coinRect, playerRect);
+	if(!coin.controlled && collides)
+	{
+		coin.ignored=true;
+	}
+
+	return collides && coin.controlled;
 }
 
 void drawIntWithMessage(string message, int value, int x, int y)
