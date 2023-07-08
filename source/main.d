@@ -46,6 +46,7 @@ void main()
 		if(IsKeyPressed(KeyboardKey.KEY_SPACE) && !start)
 		{
 			start=true;
+			score=0;
 
 			coin=new Coin(
 				Vector2(GetRandomValue(0, windowProps.width-12), GetRandomValue(0, windowProps.height-12)), 
