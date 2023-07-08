@@ -15,10 +15,21 @@ class Coin
 	{
 		this.pos=pos;
 		this.size=size;
-		this.vel=Vector2(0.0f, 1.0f);
+		this.vel=Vector2(0.0f, 0.0f);
 	}
 
 	public void update(float deltaTime)
+	{
+		manageInputs();
+		
+		pos.x+=vel.x*SPEED*deltaTime;
+		pos.y+=vel.y*SPEED*deltaTime;
+
+		checkBoundaryCollisions();
+		
+	}
+
+	private void manageInputs()
 	{
 		if(IsKeyDown(KeyboardKey.KEY_A))
 		{
@@ -44,12 +55,6 @@ class Coin
 		{
 			vel.y=0.0f;
 		}
-		
-		pos.x+=vel.x*SPEED*deltaTime;
-		pos.y+=vel.y*SPEED*deltaTime;
-
-		checkBoundaryCollisions();
-		
 	}
 
 	private void checkBoundaryCollisions()
